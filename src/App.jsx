@@ -7,7 +7,8 @@ function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
-  const apiKey = "63bfc03b77239d2e01f2bb11ba429e94";
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   function convertTime(timestamp) {
     const date = new Date(timestamp * 1000);
     let hours = date.getHours();
@@ -23,7 +24,7 @@ function App() {
       try {
         if (!city) return;
 
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        const url = `${baseUrl}/data/2.5/weather?q=${city}&appid=${apiKey}`;
         const response = await axios.get(url);
         setWeatherData(response.data);
 
@@ -82,7 +83,7 @@ function App() {
       </form>
       {error && <p className="text-red-500 mt-4">{error}</p>}
       {weatherData && (
-        <div className="container mt-4 bg-[#C4C3C1] bg-opacity-40 rounded-lg shadow-lg p-8 text-white w-[50rem] h-[31rem]">
+        <div className="container mt-4 bg-[#C4C3C1] bg-opacity-40 rounded-lg shadow-lg p-8 text-white lg:w-[50rem] lg:h-[31rem]">
           <div className="flex flex-col md:flex-row justify-between mb-6 text-white">
             <div className="mb-6 md:mb-0 text-white">
               <h2 className="text-2xl font-bold">
